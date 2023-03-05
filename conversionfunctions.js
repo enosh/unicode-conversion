@@ -361,11 +361,11 @@ function convert0x2Char ( str ) {
 	// converts a string containing 0x... escapes to a string of characters
 	// str: string, the input
     
-    // change 0x to §§ to avoid things like 0x1F4680x200D as being interpreted as too big a number
-    str = str.replace(/0x/g,'§§')
+    // change 0x to ï¿½ï¿½ to avoid things like 0x1F4680x200D as being interpreted as too big a number
+    str = str.replace(/0x/g,'ï¿½ï¿½')
 	
 	// convert up to 6 digit escapes to characters
-	str = str.replace(/§§([A-Fa-f0-9]{1,6})/g, 
+	str = str.replace(/ï¿½ï¿½([A-Fa-f0-9]{1,6})/g, 
 					function(matchstr, parens) {
 						return hex2char(parens)
 						}
@@ -612,7 +612,7 @@ function convertSpaceSeparatedNumbers2Char ( str, type ) {
 	// type: string enum [none, hex, dec, utf8, utf16], what to treat numbers as
 	
     // use a replacement for spaces, so they can be removed before the end
-    str = str.replace(/ /g, '§±§')
+    str = str.replace(/ /g, 'ï¿½ï¿½ï¿½')
     
 	if (type === 'hex') {
 		str = str.replace(/([A-Fa-f0-9]{2,8}\b)/g, 
@@ -643,7 +643,7 @@ function convertSpaceSeparatedNumbers2Char ( str, type ) {
 						}
 						)
 		}
-	return str.replace(/§±§/g,'')
+	return str.replace(/ï¿½ï¿½ï¿½/g,'')
 	}
 
 
@@ -1503,7 +1503,7 @@ function convertCharStr2CSS ( str ) {
 				pad = suppCP.toString(16).toUpperCase();
 				if (suppCP < 0x10000) { while (pad.length < 4) { pad = '0'+pad; } }
 				else { while (pad.length < 6) { pad = '0'+pad; } }
-				outputString += '\\'+pad+' '; 
+				outputString += '\\'+pad; 
 				highsurrogate = 0;
 				continue;
 				}
@@ -1522,7 +1522,7 @@ function convertCharStr2CSS ( str ) {
 			else /* if (cc > 0x7E) */ { 
 				pad = cc.toString(16).toUpperCase();
 				while (pad.length < 4) { pad = '0'+pad; }
-				outputString += '\\'+pad+' '; 
+				outputString += '\\'+pad; 
 				}
 			}
 		}
